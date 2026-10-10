@@ -1,6 +1,6 @@
 -- ============================================================
 -- BIGQUERY ML PROJECT : LOAN DEFAULT PREDICTION
--- Project  : gcp-aiml-sandbox-vivek-1234
+-- Project  : gcp_aiml_sandbox_vicky_123
 -- Dataset  : loan_default_ds
 -- Target   : loan_default (0 = No Default, 1 = Default)
 -- ============================================================
@@ -11,7 +11,7 @@
 -- ============================================================
 
 CREATE SCHEMA IF NOT EXISTS
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds`
+`gcp_aiml_sandbox_vicky_123.loan_default_ds`
 OPTIONS(
   location = 'US'
 );
@@ -24,14 +24,14 @@ OPTIONS(
 -- View first 10 rows
 
 SELECT *
-FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.loan_default_dataset`
+FROM `gcp_aiml_sandbox_vicky_123.loan_default_ds.loan_default_dataset`
 LIMIT 10;
 
 
 -- Count total rows
 
 SELECT COUNT(*) AS total_rows
-FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.loan_default_dataset`;
+FROM `gcp_aiml_sandbox_vicky_123.loan_default_ds.loan_default_dataset`;
 
 
 -- ============================================================
@@ -46,7 +46,7 @@ SELECT
   COUNTIF(credit_score IS NULL) AS credit_score_null,
   COUNTIF(loan_amount IS NULL) AS loan_amount_null,
   COUNTIF(debt_ratio IS NULL) AS debt_ratio_null
-FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.loan_default_dataset`;
+FROM `gcp_aiml_sandbox_vicky_123.loan_default_ds.loan_default_dataset`;
 
 
 -- Check target distribution
@@ -54,7 +54,7 @@ FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.loan_default_dataset`;
 SELECT
   loan_default,
   COUNT(*) AS total
-FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.loan_default_dataset`
+FROM `gcp_aiml_sandbox_vicky_123.loan_default_ds.loan_default_dataset`
 GROUP BY loan_default
 ORDER BY loan_default;
 
@@ -64,7 +64,7 @@ ORDER BY loan_default;
 -- ============================================================
 
 CREATE OR REPLACE TABLE
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`
+`gcp_aiml_sandbox_vicky_123.loan_default_ds.training_data`
 AS
 
 SELECT
@@ -91,13 +91,13 @@ SELECT
 
   loan_default
 
-FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.loan_default_dataset`;
+FROM `gcp_aiml_sandbox_vicky_123.loan_default_ds.loan_default_dataset`;
 
 
 -- Verify cleaned table
 
 SELECT COUNT(*) AS rowss
-FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`;
+FROM `gcp_aiml_sandbox_vicky_123.loan_default_ds.training_data`;
 
 
 -- ============================================================
@@ -105,7 +105,7 @@ FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`;
 -- ============================================================
 
 CREATE OR REPLACE MODEL
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds.logistic_model`
+`gcp_aiml_sandbox_vicky_123.loan_default_ds.logistic_model`
 
 OPTIONS(
 
@@ -118,7 +118,7 @@ OPTIONS(
 AS
 
 SELECT *
-FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`;
+FROM `gcp_aiml_sandbox_vicky_123.loan_default_ds.training_data`;
 
 
 
@@ -127,7 +127,7 @@ FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`;
 SELECT *
 FROM ML.EVALUATE(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.logistic_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.logistic_model`
 
 );
 
@@ -138,7 +138,7 @@ MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.logistic_model`
 SELECT *
 FROM ML.FEATURE_INFO(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.logistic_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.logistic_model`
 
 );
 
@@ -149,7 +149,7 @@ MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.logistic_model`
 SELECT *
 FROM ML.WEIGHTS(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.logistic_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.logistic_model`
 
 )
 ORDER BY ABS(weight) DESC;
@@ -161,7 +161,7 @@ ORDER BY ABS(weight) DESC;
 -- ============================================================
 
 CREATE OR REPLACE MODEL
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds.random_forest_model`
+`gcp_aiml_sandbox_vicky_123.loan_default_ds.random_forest_model`
 
 OPTIONS(
 
@@ -178,7 +178,7 @@ OPTIONS(
 AS
 
 SELECT *
-FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`;
+FROM `gcp_aiml_sandbox_vicky_123.loan_default_ds.training_data`;
 
 
 
@@ -187,7 +187,7 @@ FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`;
 SELECT *
 FROM ML.EVALUATE(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.random_forest_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.random_forest_model`
 
 );
 
@@ -198,7 +198,7 @@ MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.random_forest_model`
 SELECT *
 FROM ML.FEATURE_IMPORTANCE(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.random_forest_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.random_forest_model`
 
 )
 ORDER BY importance_gain DESC;
@@ -210,7 +210,7 @@ ORDER BY importance_gain DESC;
 -- ============================================================
 
 CREATE OR REPLACE MODEL
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds.boosted_tree_model`
+`gcp_aiml_sandbox_vicky_123.loan_default_ds.boosted_tree_model`
 
 OPTIONS(
 
@@ -227,7 +227,7 @@ OPTIONS(
 AS
 
 SELECT *
-FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`;
+FROM `gcp_aiml_sandbox_vicky_123.loan_default_ds.training_data`;
 
 
 
@@ -236,7 +236,7 @@ FROM `gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`;
 SELECT *
 FROM ML.EVALUATE(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.boosted_tree_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.boosted_tree_model`
 
 );
 
@@ -247,7 +247,7 @@ MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.boosted_tree_model`
 SELECT *
 FROM ML.FEATURE_IMPORTANCE(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.boosted_tree_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.boosted_tree_model`
 
 )
 ORDER BY importance_gain DESC;
@@ -274,7 +274,7 @@ roc_auc
 
 FROM ML.EVALUATE(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.logistic_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.logistic_model`
 
 )
 
@@ -296,7 +296,7 @@ roc_auc
 
 FROM ML.EVALUATE(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.random_forest_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.random_forest_model`
 
 )
 
@@ -318,7 +318,7 @@ roc_auc
 
 FROM ML.EVALUATE(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.boosted_tree_model`
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.boosted_tree_model`
 
 );
 
@@ -344,7 +344,7 @@ loan_amount
 
 FROM ML.PREDICT(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.loan_default_ds.boosted_tree_model`,
+MODEL `gcp_aiml_sandbox_vicky_123.loan_default_ds.boosted_tree_model`,
 
 (
 
@@ -381,19 +381,19 @@ SELECT
 -- ============================================================
 
 DROP MODEL IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds.logistic_model`;
+`gcp_aiml_sandbox_vicky_123.loan_default_ds.logistic_model`;
 
 DROP MODEL IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds.random_forest_model`;
+`gcp_aiml_sandbox_vicky_123.loan_default_ds.random_forest_model`;
 
 DROP MODEL IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds.boosted_tree_model`;
+`gcp_aiml_sandbox_vicky_123.loan_default_ds.boosted_tree_model`;
 
 DROP TABLE IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds.training_data`;
+`gcp_aiml_sandbox_vicky_123.loan_default_ds.training_data`;
 
 -- Remove entire dataset (Optional)
 
 DROP SCHEMA IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.loan_default_ds`
+`gcp_aiml_sandbox_vicky_123.loan_default_ds`
 CASCADE;
