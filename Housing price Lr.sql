@@ -1,22 +1,22 @@
 -- STEP 1: Create Dataset
 
-CREATE SCHEMA IF NOT EXISTS `gcp-aiml-sandbox-vivek-1234.house_price_ds`
+CREATE SCHEMA IF NOT EXISTS `gcp_aiml_sandbox_vicky_123.house_price_ds`
 OPTIONS(location='US');
 
 
 -- STEP 2: Explore Data
 
 SELECT *
-FROM `gcp-aiml-sandbox-vivek-1234.house_price_ds.house_prices`
+FROM `gcp_aiml_sandbox_vicky_123.house_price_ds.house_prices`
 LIMIT 10;
 
 SELECT COUNT(*) AS total_rows
-FROM `gcp-aiml-sandbox-vivek-1234.house_price_ds.house_prices`;
+FROM `gcp_aiml_sandbox_vicky_123.house_price_ds.house_prices`;
 
 -- STEP 3: Create Training Table
 
 CREATE OR REPLACE TABLE
-`gcp-aiml-sandbox-vivek-1234.house_price_ds.leaderboard_training_data`
+`gcp_aiml_sandbox_vicky_123.house_price_ds.leaderboard_training_data`
 AS
 
 SELECT
@@ -25,14 +25,14 @@ SELECT
   SubmissionCount,
   TeamId,
   LastSubmissionDate
-FROM `gcp-aiml-sandbox-vivek-1234.house_price_ds.house_prices`
+FROM `gcp_aiml_sandbox_vicky_123.house_price_ds.house_prices`
 WHERE Score IS NOT NULL;
 
 -- STEP 4: Train Linear Regression Model
 -- Target = Score
 
 CREATE OR REPLACE MODEL
-`gcp-aiml-sandbox-vivek-1234.house_price_ds.leaderboard_model`
+`gcp_aiml_sandbox_vicky_123.house_price_ds.leaderboard_model`
 
 OPTIONS(
   model_type='linear_reg',
@@ -47,21 +47,21 @@ SELECT
   SubmissionCount,
   TeamId,
   LastSubmissionDate
-FROM `gcp-aiml-sandbox-vivek-1234.house_price_ds.leaderboard_training_data`;
+FROM `gcp_aiml_sandbox_vicky_123.house_price_ds.leaderboard_training_data`;
 
 
 -- STEP 5: Evaluate Model
 
 SELECT *
 FROM ML.EVALUATE(
-  MODEL `gcp-aiml-sandbox-vivek-1234.house_price_ds.leaderboard_model`
+  MODEL `gcp_aiml_sandbox_vicky_123.house_price_ds.leaderboard_model`
 );
 
 -- STEP 6: Feature Information
 
 SELECT *
 FROM ML.FEATURE_INFO(
-  MODEL `gcp-aiml-sandbox-vivek-1234.house_price_ds.leaderboard_model`
+  MODEL `gcp_aiml_sandbox_vicky_123.house_price_ds.leaderboard_model`
 );
 
 
@@ -69,7 +69,7 @@ FROM ML.FEATURE_INFO(
 
 SELECT *
 FROM ML.WEIGHTS(
-  MODEL `gcp-aiml-sandbox-vivek-1234.house_price_ds.leaderboard_model`
+  MODEL `gcp_aiml_sandbox_vicky_123.house_price_ds.leaderboard_model`
 );
 
 
@@ -83,7 +83,7 @@ SELECT
   LastSubmissionDate
 
 FROM ML.PREDICT(
-  MODEL `gcp-aiml-sandbox-vivek-1234.house_price_ds.leaderboard_model`,
+  MODEL `gcp_aiml_sandbox_vicky_123.house_price_ds.leaderboard_model`,
   (
     SELECT
       50 AS Rank,
@@ -99,17 +99,17 @@ FROM ML.PREDICT(
 
 -- Delete the Linear Regression model
 DROP MODEL IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.house_price_ds.leaderboard_model`;
+`gcp_aiml_sandbox_vicky_123.house_price_ds.leaderboard_model`;
 
 -- Delete the training table
 DROP TABLE IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.house_price_ds.leaderboard_training_data`;
+`gcp_aiml_sandbox_vicky_123.house_price_ds.leaderboard_training_data`;
 
 -- (Optional) Delete the original uploaded table
 DROP TABLE IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.house_price_ds.house_prices`;
+`gcp_aiml_sandbox_vicky_123.house_price_ds.house_prices`;
 
 -- (Optional) Delete the entire dataset
 DROP SCHEMA IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.house_price_ds`
+`gcp_aiml_sandbox_vicky_123.house_price_ds`
 CASCADE;
