@@ -1,7 +1,7 @@
 -- ==========================================================
 -- TITANIC SURVIVAL PREDICTION USING BIGQUERY ML
 -- Model : Logistic Regression
--- Project : gcp-aiml-sandbox-vivek-1234
+-- Project : gcp_aiml_sandbox_vicky_123
 -- ==========================================================
 
 
@@ -10,7 +10,7 @@
 -- ==========================================================
 
 CREATE SCHEMA IF NOT EXISTS
-`gcp-aiml-sandbox-vivek-1234.titanic_ds`
+`gcp_aiml_sandbox_vicky_123.titanic_ds`
 OPTIONS(
   location='US'
 );
@@ -21,12 +21,12 @@ OPTIONS(
 -- ==========================================================
 
 SELECT *
-FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_train`
+FROM `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_train`
 LIMIT 10;
 
 
 SELECT COUNT(*) AS total_rows
-FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_train`;
+FROM `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_train`;
 
 
 -- ==========================================================
@@ -41,7 +41,7 @@ COUNTIF(Cabin IS NULL) AS cabin_null,
 
 COUNTIF(Embarked IS NULL) AS embarked_null
 
-FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_train`;
+FROM `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_train`;
 
 
 
@@ -53,7 +53,7 @@ Survived,
 
 COUNT(*) AS total
 
-FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_train`
+FROM `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_train`
 
 GROUP BY Survived
 
@@ -66,7 +66,7 @@ ORDER BY Survived;
 -- ==========================================================
 
 CREATE OR REPLACE TABLE
-`gcp-aiml-sandbox-vivek-1234.titanic_ds.training_data`
+`gcp_aiml_sandbox_vicky_123.titanic_ds.training_data`
 
 AS
 
@@ -88,7 +88,7 @@ Fare,
 
 IFNULL(Embarked,'S') AS Embarked
 
-FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_train`;
+FROM `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_train`;
 
 
 
@@ -96,7 +96,7 @@ FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_train`;
 
 SELECT COUNT(*) AS rowss
 
-FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.training_data`;
+FROM `gcp_aiml_sandbox_vicky_123.titanic_ds.training_data`;
 
 
 
@@ -105,7 +105,7 @@ FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.training_data`;
 -- ==========================================================
 
 CREATE OR REPLACE MODEL
-`gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_logistic_model`
+`gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_logistic_model`
 
 OPTIONS(
 
@@ -119,7 +119,7 @@ AS
 
 SELECT *
 
-FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.training_data`;
+FROM `gcp_aiml_sandbox_vicky_123.titanic_ds.training_data`;
 
 
 
@@ -131,7 +131,7 @@ SELECT *
 
 FROM ML.EVALUATE(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_logistic_model`
+MODEL `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_logistic_model`
 
 );
 
@@ -145,7 +145,7 @@ SELECT *
 
 FROM ML.FEATURE_INFO(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_logistic_model`
+MODEL `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_logistic_model`
 
 );
 
@@ -159,7 +159,7 @@ SELECT *
 
 FROM ML.WEIGHTS(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_logistic_model`
+MODEL `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_logistic_model`
 
 )
 
@@ -187,7 +187,7 @@ Fare
 
 FROM ML.PREDICT(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_logistic_model`,
+MODEL `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_logistic_model`,
 
 (
 
@@ -257,13 +257,13 @@ SELECT *
 
 FROM ML.CONFUSION_MATRIX(
 
-MODEL `gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_logistic_model`,
+MODEL `gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_logistic_model`,
 
 (
 
 SELECT *
 
-FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.training_data`
+FROM `gcp_aiml_sandbox_vicky_123.titanic_ds.training_data`
 
 )
 
@@ -276,13 +276,13 @@ FROM `gcp-aiml-sandbox-vivek-1234.titanic_ds.training_data`
 -- ==========================================================
 
 DROP MODEL IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.titanic_ds.titanic_logistic_model`;
+`gcp_aiml_sandbox_vicky_123.titanic_ds.titanic_logistic_model`;
 
 DROP TABLE IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.titanic_ds.training_data`;
+`gcp_aiml_sandbox_vicky_123.titanic_ds.training_data`;
 
 -- Drop entire dataset
 
 DROP SCHEMA IF EXISTS
-`gcp-aiml-sandbox-vivek-1234.titanic_ds`
+`gcp_aiml_sandbox_vicky_123.titanic_ds`
 CASCADE;
