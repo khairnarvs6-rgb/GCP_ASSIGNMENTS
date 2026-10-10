@@ -1,0 +1,66 @@
+GCP SDK COMMANDS
+
+| Task                                 | Command                                                                 |
+| ------------------------------------ | ----------------------------------------------------------------------- |
+| **Create a bucket**                  | `gcloud storage buckets create gs://BUCKET\_NAME --location=LOCATION`    |
+| **List all buckets**                 | `gcloud storage buckets list`                                           |
+| **List objects in a bucket**         | `gcloud storage ls gs://BUCKET\_NAME`                                    |
+| **Upload a file (object)**           | `gcloud storage cp FILE\_NAME gs://BUCKET\_NAME/`                         |
+| **Upload a folder**                  | `gcloud storage cp --recursive FOLDER\_NAME gs://BUCKET\_NAME/`           |
+| **Download an object**               | `gcloud storage cp gs://BUCKET\_NAME/OBJECT\_NAME .`                      |
+| **Copy an object**                   | `gcloud storage cp gs://SOURCE\_BUCKET/OBJECT\_NAME gs://DEST\_BUCKET/`    |
+| **Copy all objects**                 | `gcloud storage cp --recursive gs://SOURCE\_BUCKET gs://DEST\_BUCKET`     |
+| **Move (rename) an object**          | `gcloud storage mv gs://BUCKET\_NAME/OLD\_NAME gs://BUCKET\_NAME/NEW\_NAME` |
+| **Move an object to another bucket** | `gcloud storage mv gs://SOURCE\_BUCKET/OBJECT\_NAME gs://DEST\_BUCKET/`    |
+| **Delete an object**                 | `gcloud storage rm gs://BUCKET\_NAME/OBJECT\_NAME`                        |
+| **Delete multiple objects**          | `gcloud storage rm gs://BUCKET\_NAME/\*`                                  |
+| **Delete a bucket (must be empty)**  | `gcloud storage buckets delete gs://BUCKET\_NAME`                        |
+
+
+UI CONSOLE COMMMANDS
+
+
+| CLI Command                                       | Console UI                           |
+| ------------------------------------------------- | ------------------------------------ |
+| `gcloud storage buckets create`                   | **Cloud Storage → Buckets → Create** |
+| `gcloud storage buckets list`                     | **Cloud Storage → Buckets**          |
+| `gcloud storage cp file gs://bucket/`             | **Bucket → Upload files**            |
+| `gcloud storage rm gs://bucket/object`            | **Bucket → Select object → Delete**  |
+| `gcloud storage cp gs://source/object gs://dest/` | **Bucket → Select object → Copy**    |
+| `gcloud storage mv gs://source/object gs://dest/` | **Bucket → Select object → Move**    |
+
+
+
+
+# Create bucket
+gcloud storage buckets create gs://gcp-aiml-dummydatagcs1 --location=asia-south1
+
+# Upload file
+gcloud storage cp newfile.txt gs://gcp-aiml-dummydatagcs1/
+
+# List files
+gcloud storage ls gs://gcp-aiml-dummydatagcs1/
+
+# Copy file into a folder (creates folder automatically)
+gcloud storage cp gs://gcp-aiml-dummydatagcs1/newfile.txt gs://gcp-aiml-dummydatagcs1/documents/
+
+# Move file into the folder
+gcloud storage mv gs://gcp-aiml-dummydatagcs1/newfile.txt gs://gcp-aiml-dummydatagcs1/documents/
+
+# List recursively
+gcloud storage ls --recursive gs://gcp-aiml-dummydatagcs1/
+
+# Download file
+gcloud storage cp gs://gcp-aiml-dummydatagcs1/documents/newfile.txt .
+
+# Delete file
+gcloud storage rm gs://gcp-aiml-dummydatagcs1/documents/newfile.txt
+
+# Delete all objects
+gcloud storage rm --recursive gs://gcp-aiml-dummydatagcs1/**
+
+# Delete bucket
+gcloud storage buckets delete gs://gcp-aiml-dummydatagcs1
+
+
+ 

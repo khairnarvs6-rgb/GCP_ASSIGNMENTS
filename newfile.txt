@@ -1,0 +1,31 @@
+31
+What is np.lexsort and how does it differ from np.argsort? How would you use it to sort a dataset by secondary key when the primary key is tied?
+
+32
+What does np.searchsorted do? What assumption must the array satisfy, and what is its time complexity?
+
+NaN, infinity, and data quality
+33
+How do you detect NaN and inf values in a NumPy array? Why can't you use == np.nan to check for NaN?
+
+34
+What is the result of arithmetic operations involving NaN — e.g., NaN + 1, NaN > 5? What does "NaN poisoning" mean in practice?
+
+35
+How would you impute missing values in a 2D NumPy array (represented as NaN) with the column mean — using only NumPy, no pandas or sklearn?
+
+Performance and memory efficiency
+36
+What are in-place operations in NumPy (e.g., +=, np.add(a, b, out=a))? How do they reduce memory usage compared to creating new arrays?
+
+37
+What is the out parameter in NumPy ufuncs? Give an example of using it to avoid an intermediate array allocation in a computation chain.
+
+38
+What is a NumPy universal function (ufunc)? How do ufuncs achieve their speed, and how are they different from regular Python functions applied element-wise?
+
+39
+How does NumPy leverage BLAS/LAPACK under the hood for linear algebra operations? What are the practical implications for choosing between np.dot and a manual loop?
+
+40
+When would you move from NumPy to Dask, CuPy, or numexpr for numerical computation? What limitations of NumPy motivate each choice?
